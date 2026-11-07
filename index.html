@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlgoVision – Nền tảng Mô phỏng Thuật toán Đa ngôn ngữ (C, C++, Python)</title>
+  
+  <!-- Main Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/visualizer.css">
+  <link rel="stylesheet" href="css/code-viewer.css">
+  <link rel="stylesheet" href="css/comparison-quiz.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- ================= APP HEADER ================= -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" title="Thu gọn / Mở rộng danh mục">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="brand-logo" id="nav-brand-logo">
+          <div class="logo-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <span>AlgoVision</span>
+          <span class="logo-badge">Pro 2.0</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="header-nav">
+        <a href="#visualizer" class="nav-link active" data-view="visualizer-view">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          Mô phỏng
+        </a>
+        <a href="#comparison" class="nav-link" data-view="comparison-view">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 20V10"></path>
+            <path d="M12 20V4"></path>
+            <path d="M6 20v-6"></path>
+          </svg>
+          So sánh thuật toán
+        </a>
+        <a href="#quiz" class="nav-link" data-view="quiz-view">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"></path>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+          Luyện tập & Quiz
+        </a>
+        <a href="#docs" class="nav-link" data-view="docs-view">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          Tài liệu & Cẩm nang
+        </a>
+      </nav>
+
+      <div class="header-right">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" title="Chuyển Dark / Light Mode">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= APP BODY ================= -->
+    <div class="app-body">
+      <!-- SIDEBAR -->
+      <aside class="app-sidebar" id="app-sidebar">
+        <!-- Search box -->
+        <div class="sidebar-search-container">
+          <div class="sidebar-search-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="sidebar-search-input" placeholder="Tìm kiếm thuật toán..." />
+          </div>
+        </div>
+
+        <!-- Navigation Scrollable Categories -->
+        <div class="sidebar-nav-scroll" id="sidebar-menu-items">
+          <!-- 1. Sorting Algorithms -->
+          <div class="sidebar-category">
+            <div class="category-header">
+              <div class="cat-icon-title">
+                <span class="cat-icon">📊</span>
+                <span>SORTING (10)</span>
+              </div>
+              <span class="cat-badge">Sắp xếp</span>
+            </div>
+            <div class="category-list">
+              <div class="algo-sidebar-item active" data-id="bubble-sort">
+                <span class="algo-title">Bubble Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="selection-sort">
+                <span class="algo-title">Selection Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="insertion-sort">
+                <span class="algo-title">Insertion Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="merge-sort">
+                <span class="algo-title">Merge Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="quick-sort">
+                <span class="algo-title">Quick Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="heap-sort">
+                <span class="algo-title">Heap Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="shell-sort">
+                <span class="algo-title">Shell Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="counting-sort">
+                <span class="algo-title">Counting Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="radix-sort">
+                <span class="algo-title">Radix Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="bucket-sort">
+                <span class="algo-title">Bucket Sort</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Searching Algorithms -->
+          <div class="sidebar-category">
+            <div class="category-header">
+              <div class="cat-icon-title">
+                <span class="cat-icon">🔍</span>
+                <span>SEARCHING (5)</span>
+              </div>
+              <span class="cat-badge">Tìm kiếm</span>
+            </div>
+            <div class="category-list">
+              <div class="algo-sidebar-item" data-id="linear-search">
+                <span class="algo-title">Linear Search</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="binary-search">
+                <span class="algo-title">Binary Search</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="jump-search">
+                <span class="algo-title">Jump Search</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="interpolation-search">
+                <span class="algo-title">Interpolation Search</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="exponential-search">
+                <span class="algo-title">Exponential Search</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Recursion -->
+          <div class="sidebar-category">
+            <div class="category-header">
+              <div class="cat-icon-title">
+                <span class="cat-icon">🔄</span>
+                <span>RECURSION (8)</span>
+              </div>
+              <span class="cat-badge">Đệ quy</span>
+            </div>
+            <div class="category-list">
+              <div class="algo-sidebar-item" data-id="factorial">
+                <span class="algo-title">Factorial (Giai thừa)</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="fibonacci">
+                <span class="algo-title">Fibonacci Tree</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="sum-array">
+                <span class="algo-title">Sum of Array</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="power">
+                <span class="algo-title">Power (xⁿ)</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="gcd">
+                <span class="algo-title">GCD (Euclid)</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="binary-search-rec">
+                <span class="algo-title">Binary Search Recursive</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="tower-of-hanoi">
+                <span class="algo-title">Tower of Hanoi</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="n-queens">
+                <span class="algo-title">N-Queens Backtracking</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Graph Algorithms -->
+          <div class="sidebar-category">
+            <div class="category-header">
+              <div class="cat-icon-title">
+                <span class="cat-icon">🕸️</span>
+                <span>GRAPH (10)</span>
+              </div>
+              <span class="cat-badge">Đồ thị</span>
+            </div>
+            <div class="category-list">
+              <div class="algo-sidebar-item" data-id="bfs">
+                <span class="algo-title">BFS Traversal</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="dfs">
+                <span class="algo-title">DFS Traversal</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="dijkstra">
+                <span class="algo-title">Dijkstra Shortest Path</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="bellman-ford">
+                <span class="algo-title">Bellman-Ford</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="floyd-warshall">
+                <span class="algo-title">Floyd-Warshall</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="prim">
+                <span class="algo-title">Prim MST</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="kruskal">
+                <span class="algo-title">Kruskal MST</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="topological-sort">
+                <span class="algo-title">Topological Sort</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="connected-components">
+                <span class="algo-title">Connected Components</span>
+              </div>
+              <div class="algo-sidebar-item" data-id="cycle-detection">
+                <span class="algo-title">Cycle Detection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN WORKSPACE -->
+      <main class="main-workspace" id="main-workspace">
+        
+        <!-- ================= VIEW 1: VISUALIZER VIEW ================= -->
+        <section class="view-section active" id="visualizer-view">
+          <!-- Algorithm Header Info -->
+          <div class="algo-header-bar">
+            <div class="algo-title-group">
+              <h1 id="algo-name-title">Bubble Sort</h1>
+              <span class="algo-category-pill" id="algo-cat-pill">Sorting Algorithms</span>
+            </div>
+
+            <div class="algo-complexity-quick">
+              <div class="complexity-badge">
+                <span>Time:</span>
+                <strong id="badge-time-complexity">O(n²)</strong>
+              </div>
+              <div class="complexity-badge">
+                <span>Space:</span>
+                <strong id="badge-space-complexity">O(1)</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description Brief -->
+          <p id="algo-desc-text" style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5;">
+            Thuật toán sắp xếp nổi bọt so sánh từng cặp phần tử liền kề và hoán đổi chúng nếu sai thứ tự.
+          </p>
+
+          <!-- Core Workspace Grid (2 Columns) -->
+          <div class="algo-workspace-grid">
+            <!-- Left Column: Visualizer Stage + Controls + Input -->
+            <div class="visualizer-column">
+              <!-- Visualizer Stage Card -->
+              <div class="visualizer-stage-card">
+                <div class="stage-header-info">
+                  <div style="font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                    <span>KHÔNG GIAN TRỰC QUAN HÓA</span>
+                  </div>
+                  <!-- Color Legend -->
+                  <div class="stage-legend" id="stage-legend-container">
+                    <div class="legend-item">
+                      <div class="legend-color" style="background-color: var(--state-default);"></div>
+                      <span>Chưa xét</span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-color" style="background-color: var(--state-comparing);"></div>
+                      <span>So sánh</span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-color" style="background-color: var(--state-swapping);"></div>
+                      <span>Hoán đổi</span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-color" style="background-color: var(--state-sorted);"></div>
+                      <span>Đã sắp xếp</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Visualizer Display Container -->
+                <div class="visualizer-display-area" id="visualizer-canvas-container">
+                  <!-- Injected dynamically by visualizer classes -->
+                </div>
+              </div>
+
+              <!-- Controls Bar -->
+              <div id="controls-container"></div>
+
+              <!-- Input Configuration Bar -->
+              <div id="input-config-container"></div>
+            </div>
+
+            <!-- Right Column: Multi-Language Code Viewer & Step Explanation -->
+            <div class="code-and-learning-column">
+              <div id="code-viewer-container"></div>
+            </div>
+          </div>
+
+          <!-- Bottom Learning Panel: Tabs for Overview, Pseudocode, Complexity Table & Practice -->
+          <div class="surface-card" style="margin-top: 10px;">
+            <div class="card-header">
+              <div class="tab-nav">
+                <button class="tab-btn active" data-tab="tab-overview">📖 Tổng quan (Overview)</button>
+                <button class="tab-btn" data-tab="tab-pseudocode">📝 Mã giả (Pseudocode)</button>
+                <button class="tab-btn" data-tab="tab-complexity">⚡ Phân tích độ phức tạp</button>
+                <button class="tab-btn" data-tab="tab-practice">🎯 Bài tập gợi ý</button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <!-- Tab 1: Overview -->
+              <div class="tab-pane active" id="tab-overview">
+                <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; line-height: 1.6;">
+                  <div>
+                    <strong style="color: var(--accent);">Thuật toán là gì?</strong>
+                    <p id="overview-what" style="color: var(--text-secondary); margin-top: 4px;"></p>
+                  </div>
+                  <div>
+                    <strong style="color: var(--accent);">Nguyên lý hoạt động:</strong>
+                    <p id="overview-principle" style="color: var(--text-secondary); margin-top: 4px;"></p>
+                  </div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px;">
+                    <div style="background: var(--bg-surface); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                      <strong style="color: var(--success);">Ưu điểm:</strong>
+                      <p id="overview-pros" style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;"></p>
+                    </div>
+                    <div style="background: var(--bg-surface); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+                      <strong style="color: var(--warning);">Nhược điểm & Hạn chế:</strong>
+                      <p id="overview-cons" style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 2: Pseudocode -->
+              <div class="tab-pane" id="tab-pseudocode">
+                <pre id="pseudocode-text" style="font-family: var(--font-mono); font-size: 12.5px; line-height: 1.6; color: var(--text-main); background: var(--code-bg); padding: 14px; border-radius: var(--radius-sm); overflow-x: auto;"></pre>
+              </div>
+
+              <!-- Tab 3: Complexity Table -->
+              <div class="tab-pane" id="tab-complexity">
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                  <thead>
+                    <tr style="border-bottom: 2px solid var(--border-color); text-align: left; color: var(--text-secondary);">
+                      <th style="padding: 8px 12px;">Trường hợp</th>
+                      <th style="padding: 8px 12px;">Độ phức tạp thời gian (Time)</th>
+                      <th style="padding: 8px 12px;">Ý nghĩa thực tế</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                      <td style="padding: 8px 12px; font-weight: 600;">Best Case (Tốt nhất)</td>
+                      <td style="padding: 8px 12px; font-family: var(--font-mono); color: var(--success);" id="comp-best"></td>
+                      <td style="padding: 8px 12px; color: var(--text-secondary);">Khi dữ liệu đầu vào đã ở trạng thái thuận lợi nhất.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                      <td style="padding: 8px 12px; font-weight: 600;">Average Case (Trung bình)</td>
+                      <td style="padding: 8px 12px; font-family: var(--font-mono); color: var(--warning);" id="comp-avg"></td>
+                      <td style="padding: 8px 12px; color: var(--text-secondary);">Kỳ vọng toán học trên tập dữ liệu ngẫu nhiên bất kỳ.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                      <td style="padding: 8px 12px; font-weight: 600;">Worst Case (Xấu nhất)</td>
+                      <td style="padding: 8px 12px; font-family: var(--font-mono); color: var(--error);" id="comp-worst"></td>
+                      <td style="padding: 8px 12px; color: var(--text-secondary);">Trường hợp mảng nghịch đảo hoặc rơi vào phân hoạch kém nhất.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                      <td style="padding: 8px 12px; font-weight: 600;">Space Complexity (Bộ nhớ phụ)</td>
+                      <td style="padding: 8px 12px; font-family: var(--font-mono); color: var(--accent);" id="comp-space"></td>
+                      <td style="padding: 8px 12px; color: var(--text-secondary);">Lượng bộ nhớ RAM cấp phát thêm trong suốt quá trình chạy.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                      <td style="padding: 8px 12px; font-weight: 600;">Tính ổn định (Stable)</td>
+                      <td style="padding: 8px 12px; font-weight: 600;" id="comp-stable"></td>
+                      <td style="padding: 8px 12px; color: var(--text-secondary);">Bảo toàn vị trí tương đối giữa các phần tử bằng nhau.</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 12px; font-weight: 600;">Sắp xếp tại chỗ (In-place)</td>
+                      <td style="padding: 8px 12px; font-weight: 600;" id="comp-inplace"></td>
+                      <td style="padding: 8px 12px; color: var(--text-secondary);">Không đòi hỏi mảng phụ kích thước O(n) để thực hiện sắp xếp.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Tab 4: Practice -->
+              <div class="tab-pane" id="tab-practice">
+                <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: var(--text-secondary);">
+                  <p><strong>Gợi ý bài tập LeetCode / HackerRank tương ứng:</strong></p>
+                  <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>Thực hành tự tay cài đặt thuật toán bằng cả 3 ngôn ngữ: C (quản lý con trỏ), C++ (dùng STL vector/algorithm), Python (list slicing).</li>
+                    <li>Thử nghiệm với các trường hợp biên: Mảng rỗng <code>[]</code>, mảng 1 phần tử <code>[42]</code>, mảng toàn số bằng nhau <code>[7, 7, 7, 7]</code>, mảng sắp xếp ngược <code>[9, 8, 7, 6]</code>.</li>
+                    <li>Sử dụng tab <em>"So sánh thuật toán"</em> để đối chiếu trực tiếp hiệu năng với các thuật toán khác trên cùng một bộ dữ liệu.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 2: COMPARISON VIEW ================= -->
+        <section class="view-section" id="comparison-view">
+          <div id="comparison-view-container"></div>
+        </section>
+
+        <!-- ================= VIEW 3: QUIZ VIEW ================= -->
+        <section class="view-section" id="quiz-view">
+          <div id="quiz-view-container"></div>
+        </section>
+
+        <!-- ================= VIEW 4: DOCUMENTATION VIEW ================= -->
+        <section class="view-section" id="docs-view">
+          <div class="surface-card" style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 900px; margin: 0 auto; line-height: 1.7;">
+            <h2 style="font-size: 22px; color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+              📚 Hướng dẫn sử dụng nền tảng AlgoVision
+            </h2>
+            <p>
+              <strong>AlgoVision</strong> là nền tảng giáo dục tương tác chuyên sâu, được thiết kế cho sinh viên ngành Khoa học Máy tính, kỹ sư phần mềm và người yêu thích thuật toán.
+            </p>
+            <h3 style="font-size: 16px; color: var(--accent); margin-top: 10px;">Tính năng cốt lõi:</h3>
+            <ul style="padding-left: 24px; display: flex; flex-direction: column; gap: 8px;">
+              <li><strong>Trình mô phỏng trực quan chính xác:</strong> Xem chuyển động của các cột dữ liệu (Sorting), các ô tìm kiếm với con trỏ L/M/R (Searching), khung Call Stack đệ quy (Recursion) và đồ thị tương tác kéo thả (Graph).</li>
+              <li><strong>Multi-Language Code Viewer (C, C++, Python):</strong> Bạn có thể chuyển đổi ngôn ngữ bất kỳ lúc nào mà không làm gián đoạn tiến trình đang mô phỏng. Dòng code tương ứng sẽ tự động phát sáng và đồng bộ theo từng bước.</li>
+              <li><strong>Khả năng Rewind (Step Backward):</strong> Không chỉ chạy tới, AlgoVision cho phép bạn lùi lại từng bước trước đó để xem lại phép so sánh hoặc hoán đổi vừa diễn ra.</li>
+              <li><strong>Benchmark thực tế:</strong> Chạy thử nghiệm các thuật toán sắp xếp trên tập dữ liệu từ 500 đến 5,000 phần tử để đo đạc thời gian thực thi mili-giây, số phép so sánh và số lần hoán đổi.</li>
+            </ul>
+
+            <h3 style="font-size: 16px; color: var(--accent); margin-top: 10px;">⌨️ Phím tắt tiện lợi (Keyboard Shortcuts):</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; font-family: var(--font-mono); font-size: 12px;">
+              <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                <span>Space</span><span style="color: var(--text-muted); font-family: var(--font-sans);">Play / Pause</span>
+              </div>
+              <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                <span>Phím →</span><span style="color: var(--text-muted); font-family: var(--font-sans);">Tiến 1 bước (Step Forward)</span>
+              </div>
+              <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                <span>Phím ←</span><span style="color: var(--text-muted); font-family: var(--font-sans);">Lùi 1 bước (Rewind)</span>
+              </div>
+              <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                <span>Phím R</span><span style="color: var(--text-muted); font-family: var(--font-sans);">Khởi động lại (Reset)</span>
+              </div>
+              <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                <span>Phím 1 / 2 / 3</span><span style="color: var(--text-muted); font-family: var(--font-sans);">Chọn C / C++ / Python</span>
+              </div>
+              <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                <span>Phím M</span><span style="color: var(--text-muted); font-family: var(--font-sans);">Bật / Tắt âm thanh</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Main JavaScript App Entry -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

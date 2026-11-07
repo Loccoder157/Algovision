@@ -1,0 +1,449 @@
+/* ===================================================================
+   ALGOVISION - VISUALIZER CANVAS STYLES
+   Sorting Bars, Searching Cells, Call Stack, Recursion Tree, Graph Engine
+   =================================================================== */
+
+.visualizer-stage-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.stage-header-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.stage-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-xs);
+}
+
+.visualizer-display-area {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 320px;
+  position: relative;
+  padding: 10px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+/* ================= 1. SORTING: BARS ================= */
+.sorting-bars-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 290px;
+  padding: 0 10px 10px 10px;
+}
+
+.bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  flex: 1;
+  max-width: 50px;
+  position: relative;
+  transition: transform var(--transition-normal);
+}
+
+.bar-element {
+  width: 100%;
+  background-color: var(--state-default);
+  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: height var(--transition-normal), background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.bar-index {
+  margin-top: 6px;
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Bar state classes */
+.bar-element.comparing {
+  background-color: var(--state-comparing) !important;
+  box-shadow: 0 0 12px var(--warning-glow);
+  transform: scaleY(1.03);
+}
+.bar-element.swapping {
+  background-color: var(--state-swapping) !important;
+  box-shadow: 0 0 12px var(--error-glow);
+  animation: barShake 0.2s ease-in-out;
+}
+.bar-element.sorted {
+  background-color: var(--state-sorted) !important;
+  box-shadow: 0 0 10px var(--success-glow);
+}
+.bar-element.pivot {
+  background-color: var(--state-pivot) !important;
+  box-shadow: 0 0 12px rgba(236, 72, 153, 0.4);
+}
+.bar-element.active {
+  background-color: var(--state-active) !important;
+}
+.bar-element.dimmed {
+  opacity: 0.35;
+  filter: grayscale(80%);
+}
+
+@keyframes barShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* Heap Tree overlay & Split tiers for Merge Sort */
+.aux-subarrays-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-color);
+}
+.aux-subarray-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ================= 2. SEARCHING: CELLS ================= */
+.searching-cells-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 20px 10px;
+}
+
+.search-cell-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-width: 48px;
+  transition: all var(--transition-fast);
+}
+
+.search-cell-pointer {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.pointer-badge {
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+.pointer-badge.mid {
+  background-color: var(--warning);
+}
+
+.search-cell-box {
+  width: 46px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-hover);
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+  transition: all var(--transition-normal);
+}
+
+.search-cell-index {
+  margin-top: 6px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+/* Searching cell states */
+.search-cell-box.current {
+  border-color: var(--accent);
+  background-color: rgba(6, 182, 212, 0.15);
+  box-shadow: 0 0 14px var(--accent-glow);
+  transform: translateY(-4px);
+}
+.search-cell-box.found {
+  border-color: var(--success);
+  background-color: rgba(34, 197, 94, 0.25);
+  color: #FFFFFF;
+  box-shadow: 0 0 16px var(--success-glow);
+  transform: translateY(-6px) scale(1.08);
+}
+.search-cell-box.eliminated {
+  opacity: 0.25;
+  filter: grayscale(100%);
+  border-style: dashed;
+}
+
+/* ================= 3. RECURSION: CALL STACK & TREE ================= */
+.recursion-split-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+}
+
+.call-stack-section {
+  display: flex;
+  flex-direction: column-reverse; /* Stack grows upwards */
+  gap: 6px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 290px;
+}
+
+.stack-frame-card {
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+  background-color: var(--bg-secondary);
+  border-left: 4px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  box-shadow: var(--shadow-sm);
+  animation: stackSlideIn 0.25s ease-out;
+  transition: all var(--transition-fast);
+}
+
+@keyframes stackSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stack-frame-card.active {
+  border-left-color: var(--accent);
+  background-color: rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.stack-frame-card.returned {
+  border-left-color: var(--success);
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.frame-info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.frame-func-name {
+  font-weight: 700;
+  color: var(--text-main);
+}
+.frame-params {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.frame-status-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.frame-status-badge.executing {
+  background-color: rgba(6, 182, 212, 0.2);
+  color: var(--accent);
+}
+.frame-status-badge.waiting {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: var(--warning);
+}
+.frame-status-badge.returned {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: var(--success);
+}
+
+.recursion-tree-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  overflow: auto;
+  max-height: 290px;
+}
+
+/* ================= 4. GRAPH: CANVAS & PANELS ================= */
+.graph-stage-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  position: relative;
+}
+
+.graph-canvas-area {
+  flex: 1;
+  position: relative;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+#graph-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.graph-node-circle {
+  fill: var(--bg-surface-hover);
+  stroke: var(--primary);
+  stroke-width: 2.5px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.graph-node-circle:hover {
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+.graph-node-circle.current {
+  fill: var(--accent);
+  stroke: #FFFFFF;
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+.graph-node-circle.visited {
+  fill: var(--success);
+  stroke: #FFFFFF;
+  filter: drop-shadow(0 0 8px var(--success-glow));
+}
+.graph-node-circle.start {
+  stroke: var(--warning);
+  stroke-width: 3.5px;
+}
+
+.graph-node-text {
+  fill: var(--text-main);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  user-select: none;
+}
+
+.graph-edge-line {
+  stroke: var(--border-color);
+  stroke-width: 2px;
+  transition: stroke var(--transition-fast), stroke-width var(--transition-fast);
+}
+.graph-edge-line.active {
+  stroke: var(--accent);
+  stroke-width: 3.5px;
+}
+.graph-edge-line.mst {
+  stroke: var(--success);
+  stroke-width: 4px;
+}
+.graph-edge-weight {
+  fill: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+/* Graph Data Structures Panel (Queue, Distance Table, etc.) */
+.graph-side-inspector {
+  width: 220px;
+  margin-left: 12px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+  overflow-y: auto;
+}
+.inspector-title {
+  font-weight: 600;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 4px;
+}
+.inspector-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  padding: 2px 0;
+}

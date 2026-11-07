@@ -1,0 +1,265 @@
+/* ===================================================================
+   ALGOVISION - COMPARISON & QUIZ STYLES
+   Benchmark tables, charts, quiz questions & interactive feedback
+   =================================================================== */
+
+/* ================= 1. COMPARISON VIEW ================= */
+.comparison-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comparison-header-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.comparison-selectors {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.algo-multi-select-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+.algo-multi-select-chip.selected {
+  background-color: rgba(99, 102, 241, 0.2);
+  border-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.comparison-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.benchmark-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.benchmark-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.benchmark-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.benchmark-card-title h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.benchmark-metric-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.benchmark-metric-row:last-child {
+  border-bottom: none;
+}
+.benchmark-metric-label {
+  color: var(--text-secondary);
+}
+.benchmark-metric-value {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-main);
+}
+.benchmark-metric-value.highlight-time {
+  color: var(--accent);
+}
+
+/* Comparison Visual Chart Bar */
+.chart-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+.chart-bar-track {
+  height: 8px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.chart-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ================= 2. QUIZ & PRACTICE VIEW ================= */
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quiz-header-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.quiz-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-score-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 16px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: var(--success);
+  border-radius: var(--radius-md);
+}
+
+.quiz-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.quiz-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.quiz-question-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.quiz-category-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+.quiz-difficulty-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+}
+.quiz-difficulty-tag.easy {
+  color: var(--success);
+  background: rgba(34, 197, 94, 0.15);
+}
+.quiz-difficulty-tag.medium {
+  color: var(--warning);
+  background: rgba(245, 158, 11, 0.15);
+}
+.quiz-difficulty-tag.hard {
+  color: var(--error);
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.quiz-question-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.quiz-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-option-btn {
+  padding: 10px 14px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 13px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.quiz-option-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background-color: var(--bg-surface-hover);
+}
+.quiz-option-btn.correct {
+  background-color: rgba(34, 197, 94, 0.2) !important;
+  border-color: var(--success) !important;
+  color: #FFFFFF;
+}
+.quiz-option-btn.wrong {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  border-color: var(--error) !important;
+  color: #FFFFFF;
+}
+
+.quiz-explanation-box {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  border-left: 3px solid var(--accent);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}

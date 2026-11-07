@@ -1,0 +1,215 @@
+/* ===================================================================
+   ALGOVISION - MAIN & THEME STYLES
+   Modern Educational Platform & Professional Developer Tool
+   =================================================================== */
+
+:root {
+  /* Dark Mode (Default) Palette */
+  --bg-base: #0B1020;
+  --bg-secondary: #111827;
+  --bg-surface: #182235;
+  --bg-surface-hover: #1e2c44;
+  --bg-surface-active: #243552;
+  --border-color: #24324f;
+  --border-light: rgba(255, 255, 255, 0.08);
+
+  --primary: #6366F1;
+  --primary-hover: #4F46E5;
+  --primary-glow: rgba(99, 102, 241, 0.25);
+  --secondary: #8B5CF6;
+  --secondary-glow: rgba(139, 92, 246, 0.25);
+  --accent: #06B6D4;
+  --accent-glow: rgba(6, 182, 212, 0.25);
+
+  --success: #22C55E;
+  --success-glow: rgba(34, 197, 94, 0.25);
+  --warning: #F59E0B;
+  --warning-glow: rgba(245, 158, 11, 0.25);
+  --error: #EF4444;
+  --error-glow: rgba(239, 68, 68, 0.25);
+
+  --text-main: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-inverse: #0B1020;
+
+  /* State colors for visualizers */
+  --state-default: #3B82F6;
+  --state-comparing: #F59E0B;
+  --state-swapping: #EF4444;
+  --state-sorted: #22C55E;
+  --state-pivot: #EC4899;
+  --state-active: #06B6D4;
+  --state-range: rgba(99, 102, 241, 0.15);
+  --state-dimmed: #1e293b;
+
+  /* Code Syntax Theme (Dark) */
+  --code-bg: #0c1222;
+  --code-gutter-bg: #080d19;
+  --code-line-active: rgba(99, 102, 241, 0.2);
+  --code-line-active-border: #6366F1;
+  --syntax-keyword: #F472B6;
+  --syntax-type: #38BDF8;
+  --syntax-func: #A78BFA;
+  --syntax-string: #4ADE80;
+  --syntax-number: #FBBF24;
+  --syntax-comment: #64748B;
+  --syntax-operator: #E2E8F0;
+  --syntax-builtin: #FB7185;
+
+  /* Elevation / Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.3);
+
+  /* Dimensions & Radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  --header-height: 64px;
+  --sidebar-width: 280px;
+  --sidebar-collapsed-width: 72px;
+
+  /* Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
+
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+  --bg-base: #F8FAFC;
+  --bg-secondary: #F1F5F9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-hover: #F1F5F9;
+  --bg-surface-active: #E2E8F0;
+  --border-color: #E2E8F0;
+  --border-light: rgba(0, 0, 0, 0.06);
+
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --primary-glow: rgba(79, 70, 229, 0.2);
+  --secondary: #7C3AED;
+  --secondary-glow: rgba(124, 58, 237, 0.2);
+  --accent: #0891B2;
+  --accent-glow: rgba(8, 145, 178, 0.2);
+
+  --text-main: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-inverse: #FFFFFF;
+
+  --state-default: #2563EB;
+  --state-comparing: #D97706;
+  --state-swapping: #DC2626;
+  --state-sorted: #16A34A;
+  --state-pivot: #DB2777;
+  --state-active: #0891B2;
+  --state-range: rgba(79, 70, 229, 0.08);
+  --state-dimmed: #CBD5E1;
+
+  --code-bg: #1E293B;
+  --code-gutter-bg: #0F172A;
+  --code-line-active: rgba(99, 102, 241, 0.25);
+  --code-line-active-border: #818CF8;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Links & Typography */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+input, select, textarea {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-main);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+/* Utility Helpers */
+.hidden { display: none !important; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
