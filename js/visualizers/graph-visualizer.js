@@ -217,6 +217,18 @@ export class GraphVisualizer {
         this.dragOffset.y = (e.clientY - rect.top) * (320 / rect.height) - node.y;
       });
 
+      // Touch start for mobile drag
+      group.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          const touch = e.touches[0];
+          this.isDragging = true;
+          this.draggedNode = node;
+          const rect = svg.getBoundingClientRect();
+          this.dragOffset.x = (touch.clientX - rect.left) * (540 / rect.width) - node.x;
+          this.dragOffset.y = (touch.clientY - rect.top) * (320 / rect.height) - node.y;
+        }
+      }, { passive: true });
+
       group.addEventListener('click', (e) => {
         e.stopPropagation();
         this.selectedNodeId = (this.selectedNodeId === id) ? null : id;
@@ -236,7 +248,28 @@ export class GraphVisualizer {
       this.render(this.currentStep);
     });
 
+    svg.addEventListener('touchmove', (e) => {
+      if (!this.isDragging || !this.draggedNode || e.touches.length !== 1) return;
+      const touch = e.touches[0];
+      const rect = svg.getBoundingClientRect();
+      const newX = (touch.clientX - rect.left) * (540 / rect.width) - this.dragOffset.x;
+      const newY = (touch.clientY - rect.top) * (320 / rect.height) - this.dragOffset.y;
+
+      this.draggedNode.x = Math.max(25, Math.min(515, Math.round(newX)));
+      this.draggedNode.y = Math.max(25, Math.min(295, Math.round(newY)));
+
+      this.render(this.currentStep);
+    }, { passive: true });
+
     window.addEventListener('mouseup', () => {
+      if (this.isDragging) {
+        this.isDragging = false;
+        this.draggedNode = null;
+        if (this.onGraphChange) this.onGraphChange(this.graphData);
+      }
+    });
+
+    window.addEventListener('touchend', () => {
       if (this.isDragging) {
         this.isDragging = false;
         this.draggedNode = null;

@@ -642,6 +642,11 @@ export const RecursionGenerators = {
     const steps = [];
     const callStack = [];
     let frameId = 0;
+    const rods = {
+      A: Array.from({ length: n }, (_, i) => n - i),
+      B: [],
+      C: []
+    };
 
     function recHanoi(count, from, to, aux) {
       const frame = {
@@ -661,11 +666,15 @@ export const RecursionGenerators = {
         state: {
           callStack: JSON.parse(JSON.stringify(callStack)),
           activeFrameId: frame.id,
+          rods: JSON.parse(JSON.stringify(rods)),
           variables: { n: count, from, to, aux }
         }
       });
 
       if (count === 1) {
+        const disk = rods[from].pop();
+        rods[to].push(disk);
+
         steps.push({
           type: 'move_disk',
           description: `Chuyển trực tiếp đĩa 1 từ cọc ${from} sang cọc ${to}.`,
@@ -673,6 +682,7 @@ export const RecursionGenerators = {
           state: {
             callStack: JSON.parse(JSON.stringify(callStack)),
             activeFrameId: frame.id,
+            rods: JSON.parse(JSON.stringify(rods)),
             variables: { 'hành động': `Chuyển đĩa 1: ${from} -> ${to}` }
           }
         });
@@ -685,6 +695,9 @@ export const RecursionGenerators = {
       recHanoi(count - 1, from, aux, to);
 
       // 2. Chuyển đĩa thứ n sang cọc đích
+      const diskN = rods[from].pop();
+      rods[to].push(diskN);
+
       steps.push({
         type: 'move_disk',
         description: `Chuyển đĩa lớn thứ ${count} từ cọc ${from} sang cọc ${to}.`,
@@ -692,6 +705,7 @@ export const RecursionGenerators = {
         state: {
           callStack: JSON.parse(JSON.stringify(callStack)),
           activeFrameId: frame.id,
+          rods: JSON.parse(JSON.stringify(rods)),
           variables: { 'hành động': `Chuyển đĩa ${count}: ${from} -> ${to}` }
         }
       });
@@ -711,6 +725,7 @@ export const RecursionGenerators = {
       state: {
         callStack: [],
         activeFrameId: null,
+        rods: JSON.parse(JSON.stringify(rods)),
         variables: { 'tổng số bước': Math.pow(2, n) - 1 }
       }
     });

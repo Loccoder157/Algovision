@@ -1,0 +1,911 @@
+/* ===================================================================
+   ALGOVISION - DEDICATED RESPONSIVE MOBILE & TABLET STYLESHEET
+   Strict Isolation:
+   - PC/Laptop (>= 1024px): 100% UNCHANGED. Exactly identical to native desktop.
+   - Tablet (768px - 1023px): Fluid single-column or adjusted layout.
+   - Mobile (< 768px): Tailor-made, ergonomic mobile experience.
+   =================================================================== */
+
+/* ===================================================================
+   1. DESKTOP PRESERVATION (min-width: 1024px)
+   Ensure all mobile-only widgets are completely hidden on Desktop.
+   =================================================================== */
+@media (min-width: 1024px) {
+  .sidebar-mobile-header,
+  .sidebar-backdrop,
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+/* ===================================================================
+   2. TABLET ADAPTATION (min-width: 768px) and (max-width: 1023px)
+   =================================================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar-mobile-header,
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+
+  .sidebar-backdrop {
+    display: none;
+  }
+
+  .app-header {
+    padding: 0 14px;
+  }
+
+  .header-nav {
+    gap: 4px;
+  }
+
+  .nav-link {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .algo-workspace-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .visualizer-stage-card {
+    min-height: 360px;
+  }
+
+  .code-viewer-panel {
+    height: 420px;
+  }
+
+  .main-workspace {
+    padding-bottom: 24px;
+  }
+}
+
+/* ===================================================================
+   3. MOBILE PHONES (max-width: 767px)
+   Complete, purpose-built mobile experience.
+   =================================================================== */
+@media (max-width: 767px) {
+  /* Prevent horizontal overflow across the entire mobile document */
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #app-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .app-body {
+    height: calc(100vh - var(--header-height));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .main-workspace {
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Bottom padding ensures content is never covered by the mobile bottom nav */
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 12px));
+  }
+
+  /* -----------------------------------------------------------------
+     3.1 MOBILE HEADER
+     ----------------------------------------------------------------- */
+  .app-header {
+    height: 52px;
+    min-height: 52px;
+    padding: 0 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-nav {
+    display: none !important;
+  }
+
+  .header-left {
+    gap: 8px;
+  }
+
+  .sidebar-toggle-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+  }
+
+  .brand-logo {
+    font-size: 16px;
+    gap: 6px;
+  }
+
+  .logo-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .logo-badge {
+    font-size: 9px;
+    padding: 1px 5px;
+    margin-left: 2px;
+  }
+
+  .theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+
+  /* -----------------------------------------------------------------
+     3.2 MOBILE SLIDING DRAWER MENU
+     ----------------------------------------------------------------- */
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 285px;
+    max-width: 86vw;
+    height: 100vh;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    box-shadow: 6px 0 28px rgba(0, 0, 0, 0.65);
+    z-index: 1200;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .app-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .sidebar-mobile-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-main);
+  }
+
+  .logo-icon-sm {
+    font-size: 15px;
+  }
+
+  .sidebar-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-base);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .sidebar-close-btn:active {
+    background: var(--bg-surface-hover);
+    color: var(--text-main);
+    transform: scale(0.95);
+  }
+
+  .sidebar-search-container {
+    padding: 10px 12px;
+  }
+
+  .sidebar-search-box input {
+    height: 36px;
+    font-size: 13px;
+  }
+
+  .sidebar-nav-scroll {
+    padding: 8px 10px calc(20px + env(safe-area-inset-bottom, 10px)) 10px;
+    gap: 12px;
+  }
+
+  .algo-sidebar-item {
+    padding: 10px 12px 10px 24px;
+    font-size: 13.5px;
+    min-height: 40px;
+  }
+
+  /* -----------------------------------------------------------------
+     3.3 MOBILE MAIN CONTENT & WORKSPACE GRID (Single-Column)
+     ----------------------------------------------------------------- */
+  .view-section {
+    padding: 12px 10px 20px 10px;
+    gap: 12px;
+  }
+
+  .algo-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-bottom: 6px;
+  }
+
+  .algo-title-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .algo-title-group h1 {
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  .algo-category-pill {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  .algo-complexity-quick {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .complexity-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    gap: 4px;
+  }
+
+  #algo-desc-text {
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
+  }
+
+  .algo-workspace-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .visualizer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .code-and-learning-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* -----------------------------------------------------------------
+     3.4 MOBILE VISUALIZATION STAGE
+     ----------------------------------------------------------------- */
+  .visualizer-stage-card {
+    padding: 10px;
+    min-height: 290px;
+    border-radius: var(--radius-sm);
+  }
+
+  .stage-header-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+
+  .stage-legend {
+    width: 100%;
+    gap: 6px 12px;
+  }
+
+  .legend-item {
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .legend-color {
+    width: 10px;
+    height: 10px;
+  }
+
+  .visualizer-display-area {
+    min-height: 240px;
+    padding: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* SORTING BARS ON MOBILE */
+  .sorting-bars-container {
+    height: 210px;
+    gap: 3px;
+    padding: 0 4px 6px 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .bar-wrapper {
+    min-width: 16px;
+    max-width: 32px;
+  }
+
+  .bar-element {
+    font-size: 9px;
+    font-weight: 700;
+    padding-top: 2px;
+  }
+
+  .bar-index {
+    font-size: 9px;
+    margin-top: 3px;
+  }
+
+  .aux-subarrays-container {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .aux-subarray-row {
+    flex-wrap: wrap;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  /* SEARCHING CELLS ON MOBILE */
+  .searching-cells-container {
+    gap: 6px;
+    padding: 12px 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .search-cell-wrapper {
+    min-width: 38px;
+  }
+
+  .search-cell-box {
+    width: 38px;
+    height: 40px;
+    font-size: 12px;
+    border-width: 1.5px;
+  }
+
+  .search-cell-pointer {
+    height: 18px;
+    font-size: 9px;
+    margin-bottom: 2px;
+  }
+
+  .pointer-badge {
+    padding: 1px 4px;
+    font-size: 8.5px;
+  }
+
+  .search-cell-index {
+    font-size: 10px;
+    margin-top: 3px;
+  }
+
+  /* RECURSION VISUALIZER ON MOBILE */
+  .recursion-split-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    min-height: 240px;
+  }
+
+  .call-stack-section {
+    max-height: 180px;
+    padding: 6px;
+    gap: 5px;
+  }
+
+  .stack-frame-card {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .recursion-tree-section {
+    max-height: 160px;
+    padding: 6px;
+  }
+
+  /* GRAPH VISUALIZER ON MOBILE */
+  .graph-stage-container {
+    flex-direction: column;
+    min-height: 420px;
+  }
+
+  .graph-canvas-area {
+    width: 100%;
+    height: 260px;
+    min-height: 260px;
+  }
+
+  #graph-svg {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+
+  .graph-side-inspector {
+    width: 100%;
+    max-width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    padding: 10px 8px;
+    max-height: 160px;
+  }
+
+  /* -----------------------------------------------------------------
+     3.5 MOBILE SIMULATION CONTROLS (Ergonomic Touch Targets)
+     ----------------------------------------------------------------- */
+  .control-bar-card {
+    padding: 8px 10px;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .playback-controls {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 4px;
+  }
+
+  .btn-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+  }
+
+  .play-main-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .step-indicator-badge {
+    font-size: 11px;
+    padding: 5px 8px;
+    min-width: 78px;
+  }
+
+  .speed-control-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 6px 0 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .speed-label {
+    font-size: 11px;
+  }
+
+  .speed-slider {
+    flex: 1;
+    max-width: 140px;
+    height: 8px;
+    margin: 0 10px;
+  }
+
+  /* -----------------------------------------------------------------
+     3.6 MOBILE INPUT CONFIGURATION
+     ----------------------------------------------------------------- */
+  .input-config-card {
+    padding: 8px 10px;
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .input-group label {
+    font-size: 11.5px;
+  }
+
+  .input-group input[type="text"] {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 36px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .input-group input[type="number"] {
+    width: 80px;
+    height: 36px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .input-config-card .btn {
+    width: 100%;
+    height: 36px;
+    font-size: 12px;
+  }
+
+  /* -----------------------------------------------------------------
+     3.7 MOBILE SOURCE CODE VIEWER
+     ----------------------------------------------------------------- */
+  .code-viewer-panel {
+    height: 330px;
+    border-radius: var(--radius-sm);
+  }
+
+  .code-viewer-panel.expanded {
+    top: 10px;
+    bottom: 10px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .code-viewer-header {
+    height: 40px;
+    min-height: 40px;
+    padding: 0 8px;
+  }
+
+  .lang-selector-group {
+    padding: 2px;
+    gap: 1px;
+  }
+
+  .lang-tab-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+  }
+
+  .code-header-actions {
+    gap: 4px;
+  }
+
+  .code-action-btn {
+    padding: 3px 6px;
+    font-size: 10.5px;
+    gap: 3px;
+  }
+
+  .code-content-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 11.5px;
+    line-height: 20px;
+    padding: 6px 0;
+  }
+
+  .code-line-numbers {
+    min-width: 32px;
+    padding: 0 4px 0 6px;
+    font-size: 11px;
+    line-height: 20px;
+  }
+
+  .code-line-numbers div {
+    height: 20px;
+    line-height: 20px;
+  }
+
+  .code-line {
+    height: 20px;
+    line-height: 20px;
+    padding: 0 12px 0 18px;
+    font-size: 11.5px;
+  }
+
+  .code-line.active::before {
+    left: 4px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 9px;
+  }
+
+  /* Step explanation box */
+  .step-explanation-card {
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .explanation-header {
+    margin-bottom: 2px;
+  }
+
+  .explanation-header h4 {
+    font-size: 11px;
+  }
+
+  .explanation-active-line-code {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .explanation-body-text {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .variable-tracker-row {
+    gap: 4px;
+  }
+
+  .variable-chip {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  /* -----------------------------------------------------------------
+     3.8 MOBILE BOTTOM LEARNING PANELS
+     ----------------------------------------------------------------- */
+  .surface-card {
+    padding: 12px 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  .tab-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    gap: 3px;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  .tab-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .tab-pane {
+    font-size: 12px;
+  }
+
+  #tab-overview > div > div:nth-child(3) {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  #tab-complexity table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    font-size: 11.5px;
+  }
+
+  #tab-complexity th, #tab-complexity td {
+    padding: 6px 8px;
+    white-space: nowrap;
+  }
+
+  /* -----------------------------------------------------------------
+     3.9 MOBILE BOTTOM NAVIGATION BAR (Fixed Thumb Zone)
+     ----------------------------------------------------------------- */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background-color: rgba(17, 24, 39, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  .mobile-nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 100%;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 9.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.15s ease;
+    padding: 4px 0;
+    user-select: none;
+  }
+
+  .mobile-nav-btn svg {
+    stroke: currentColor;
+    transition: transform 0.15s ease;
+  }
+
+  .mobile-nav-btn.active {
+    color: var(--accent);
+  }
+
+  .mobile-nav-btn.active svg {
+    stroke: var(--accent);
+    transform: translateY(-1px) scale(1.08);
+  }
+
+  .mobile-nav-btn:active {
+    transform: scale(0.92);
+  }
+  /* -----------------------------------------------------------------
+     3.10 MOBILE COMPARISON & QUIZ VIEWS
+     ----------------------------------------------------------------- */
+  .comparison-header-card {
+    padding: 12px;
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .comparison-selectors {
+    gap: 6px;
+  }
+
+  .algo-multi-select-chip {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  .comparison-results-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .benchmark-card {
+    padding: 12px;
+  }
+
+  .quiz-header-card {
+    padding: 12px;
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .quiz-filter-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .quiz-score-badge {
+    width: 100%;
+    justify-content: center;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .quiz-card {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+
+  .quiz-question-title {
+    font-size: 13.5px;
+  }
+
+  .quiz-option-btn {
+    padding: 12px;
+    min-height: 44px;
+    font-size: 12.5px;
+  }
+
+  .quiz-explanation-box {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ===================================================================
+   4. ULTRA-SMALL PHONES (max-width: 360px, e.g. iPhone SE 1st gen)
+   =================================================================== */
+@media (max-width: 360px) {
+  .brand-logo span:not(.logo-badge) {
+    font-size: 14px;
+  }
+
+  .algo-title-group h1 {
+    font-size: 17px;
+  }
+
+  .playback-controls {
+    gap: 2px;
+  }
+
+  .btn-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .play-main-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .mobile-nav-btn {
+    font-size: 8.5px;
+  }
+}

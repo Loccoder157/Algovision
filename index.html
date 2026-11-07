@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/visualizer.css">
   <link rel="stylesheet" href="css/code-viewer.css">
   <link rel="stylesheet" href="css/comparison-quiz.css">
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
   <div id="app-container">
@@ -87,8 +88,25 @@
 
     <!-- ================= APP BODY ================= -->
     <div class="app-body">
+      <!-- Backdrop for Mobile Drawer -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
       <!-- SIDEBAR -->
       <aside class="app-sidebar" id="app-sidebar">
+        <!-- Mobile Drawer Header -->
+        <div class="sidebar-mobile-header" id="sidebar-mobile-header">
+          <div class="sidebar-mobile-title">
+            <span class="logo-icon-sm">⚡</span>
+            <span>Danh mục thuật toán</span>
+          </div>
+          <button class="sidebar-close-btn" id="sidebar-close-btn" title="Đóng menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
         <!-- Search box -->
         <div class="sidebar-search-container">
           <div class="sidebar-search-box">
@@ -488,6 +506,48 @@
 
       </main>
     </div>
+
+    <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+      <button class="mobile-nav-btn active" data-view="visualizer-view" id="mob-nav-visualizer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        <span>Mô phỏng</span>
+      </button>
+      <button class="mobile-nav-btn" id="mob-nav-algo-menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <span>Thuật toán</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="comparison-view" id="mob-nav-compare">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 20V10"></path>
+          <path d="M12 20V4"></path>
+          <path d="M6 20v-6"></path>
+        </svg>
+        <span>So sánh</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="quiz-view" id="mob-nav-quiz">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"></path>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <span>Luyện tập</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="docs-view" id="mob-nav-docs">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+        <span>Tài liệu</span>
+      </button>
+    </nav>
   </div>
 
   <!-- Main JavaScript App Entry -->

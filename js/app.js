@@ -197,18 +197,56 @@ class AlgoVisionApp {
       });
     }
 
-    // Sidebar collapse button
+    // Sidebar collapse / mobile drawer button
     if (this.sidebarToggleBtn && this.sidebar) {
       this.sidebarToggleBtn.addEventListener('click', () => {
-        this.sidebar.classList.toggle('collapsed');
+        if (window.innerWidth < 1024) {
+          this.openMobileDrawer();
+        } else {
+          this.sidebar.classList.toggle('collapsed');
+        }
       });
     }
+
+    // Mobile drawer backdrop & close button
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (backdrop) {
+      backdrop.addEventListener('click', () => this.closeMobileDrawer());
+    }
+
+    const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+    if (sidebarCloseBtn) {
+      sidebarCloseBtn.addEventListener('click', () => this.closeMobileDrawer());
+    }
+
+    // Mobile Bottom Navigation: Drawer toggle button
+    const mobAlgoBtn = document.getElementById('mob-nav-algo-menu');
+    if (mobAlgoBtn) {
+      mobAlgoBtn.addEventListener('click', () => {
+        this.openMobileDrawer();
+      });
+    }
+
+    // Mobile Bottom Navigation: Views switch buttons
+    document.querySelectorAll('.mobile-nav-btn[data-view]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const viewId = btn.getAttribute('data-view');
+        this.switchView(viewId);
+        const ws = document.getElementById('main-workspace');
+        if (ws) ws.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
 
     // Sidebar algorithm click
     document.querySelectorAll('.algo-sidebar-item').forEach(item => {
       item.addEventListener('click', () => {
         const id = item.getAttribute('data-id');
         this.switchAlgorithm(id);
+        if (window.innerWidth < 1024) {
+          this.closeMobileDrawer();
+          const ws = document.getElementById('main-workspace');
+          if (ws) ws.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       });
     });
 
@@ -296,10 +334,32 @@ class AlgoVisionApp {
     });
   }
 
+  openMobileDrawer() {
+    if (this.sidebar) this.sidebar.classList.add('mobile-open');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (backdrop) backdrop.classList.add('active');
+  }
+
+  closeMobileDrawer() {
+    if (this.sidebar) this.sidebar.classList.remove('mobile-open');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (backdrop) backdrop.classList.remove('active');
+  }
+
   switchView(viewId) {
     State.activeView = viewId;
     document.querySelectorAll('.view-section').forEach(sec => {
       sec.classList.toggle('active', sec.id === viewId);
+    });
+
+    // Sync Top Desktop Navigation Links
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.classList.toggle('active', l.getAttribute('data-view') === viewId);
+    });
+
+    // Sync Mobile Bottom Navigation Buttons
+    document.querySelectorAll('.mobile-nav-btn[data-view]').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-view') === viewId);
     });
 
     // If switching away from visualizer, pause execution
